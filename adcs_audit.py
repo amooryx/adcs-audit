@@ -16,6 +16,14 @@ def banner() -> None:
     print(f"[ {TOOL} ] {DESCRIPTION}")
 
 
+def safe_display(value: str) -> str:
+    """Render non-printable input characters as visible escape sequences."""
+    return "".join(
+        char if char.isprintable() else char.encode("unicode_escape").decode("ascii")
+        for char in value
+    )
+
+
 def authorised(assume_yes: bool) -> bool:
     """Refuse to run against a target without an explicit authorisation ack.
 
@@ -35,8 +43,8 @@ def run(args: argparse.Namespace) -> int:
     workflow. Extend `run()` with the checks your engagement needs.
     """
     banner()
-    print(f"[*] target : {args.target}")
-    print(f"[*] output : {args.output or '(stdout)'}")
+    print(f"[*] target : {safe_display(args.target)}")
+    print(f"[*] output : {safe_display(args.output) if args.output else '(stdout)'}")
     print("[*] scaffold ready - implement engagement-specific logic in run().")
     return 0
 

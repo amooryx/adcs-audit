@@ -27,11 +27,21 @@ python adcs_audit.py <target>
 | `-v, --verbose` | Verbose output |
 | `-y, --yes` | Skip the authorisation prompt |
 
+## Current scope
+
+The current implementation is a CLI scaffold: it validates authorisation, echoes
+the supplied target and output path, and does **not** connect to systems, enumerate
+certificate templates, or perform AD CS checks. Non-printable characters in the
+displayed target and output path are escaped so they cannot inject terminal control
+sequences or forged output lines. Escaping affects display only; it does not
+validate or change the supplied values.
+
 ## Disclaimer
 
 > **Authorised security testing only.** Use this against systems you own or have
-> explicit written permission to test. The tool prompts for authorisation before
-> acting and is provided for professional engagements, labs, and research.
+> explicit written permission to test. The CLI requires an authorisation
+> acknowledgement, but the current scaffold does not perform a test. This tool is
+> provided for professional engagements, labs, and research.
 
 ## Author
 
